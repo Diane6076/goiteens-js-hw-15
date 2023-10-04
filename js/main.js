@@ -18,12 +18,12 @@ transactions: [], // Історія транзакцій
 //Приймає суму і тип транзакції.
 
 createTransaction(amount, type) {
-const transaction = {
-    id: account.transactions.length + 1, 
-    type,
-    amount,
-}
-    return transaction
+    const transaction = {
+        id: account.transactions.length, 
+        type,
+        amount,
+      }
+      return transaction
 },
 
 //Метод відповідає за додавання суми до балансу.
@@ -33,9 +33,9 @@ const transaction = {
 
 deposit(amount) {
 // let {createTransaction, balance, transactions} = this
-   const transaction = this.createTransaction(amount, Transaction.DEPOSIT)
-   this.transactions.push(transaction)
-   this.balance += amount
+const transaction = this.createTransaction(amount, Transaction.DEPOSIT)
+this.transactions.push(transaction)
+this.balance += amount
    return console.log(`Рахунок поповнено ${amount}`);
 },
 
@@ -68,11 +68,12 @@ getBalance() {
 //Метод шукає і повертає об'єкт транзакції по id
 
 getTransactionDetails(id) {
-    for (const i of this.transactions) {
-        if (i.id === id) {
-          return console.log(`Обєкт транзакції по id ${i}`);
-        }
-      }
+    // for (const i of this.transactions) {
+    //     if (i.id === id) {
+    //       return console.log(`Обєкт транзакції по id ${i}`);
+    //     }
+    //   }
+      return account.transactions[id]
 },
 
 //Метод повертає кількість коштів
@@ -80,23 +81,26 @@ getTransactionDetails(id) {
 
 getTransactionTotal(type) {
     let sum = 0
-    for (const transaction of this.transactions) {
-      if (transaction.type === type) {
-        sum += transaction.amount
-      }
-      return console.log(sum)
-    }
-   },
+     for (const transaction of this.transactions) {
+       if (transaction.type === type) {
+         sum += transaction.amount
+       }
+     }
+     return sum
+    },
 }
 
- 
 account.deposit(500)
-account.withdraw(100)
-account.deposit(300)
-account.deposit(600)
-account.withdraw(800)
-
-// account.createTransaction(600, Transaction.DEPOSIT)
-account.getBalance()
-account.getTransactionDetails(4)
-account.getTransactionTotal(Transaction.DEPOSIT)
+   account.withdraw(100)
+   account.deposit(300)
+   account.getBalance()
+   account.deposit(600)
+   account.withdraw(800)
+   account.getBalance()
+   
+   console.log(account.getTransactionDetails(1))
+   console.log(account.getTransactionDetails(4))
+   
+   
+   console.log(account.getTransactionTotal(Transaction.WITHDRAW))
+   console.log(account.getTransactionTotal(Transaction.DEPOSIT))
